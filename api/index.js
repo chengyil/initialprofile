@@ -2,11 +2,12 @@ const express = require('express');
 const app = express();
 const InitialProfile = require('../src/intialProfile')
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
     const profile = new InitialProfile("Cheng Yi");
-    console.log(req.query)
+    const name = req.query['name'] || req.originalUrl.split('/').join(' ').trim();
+
     profile
-        .setName(req.query['name'])
+        .setName(name)
         .setSize(req.query['size'])
         .setColor(req.query['color'])
         .setBackground(req.query['bg'])
@@ -15,13 +16,9 @@ app.get('/', (req, res) => {
 })
 
 app.use((err, req, res, next) => {
-  if (res.headersSent) {
-    return next(err)
-  }
-  console.log("error");
-
+  console.log('Error ', { err });
   res.status(500)
-  res.render('error', { error: err })
+  res.send("Sorry an error had occur")
 });
 
 module.exports = app;
