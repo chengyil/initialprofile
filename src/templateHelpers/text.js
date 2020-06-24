@@ -21,6 +21,6 @@ exports.text = function (context, options) {
     }, []).join(' ');
 
     return `<text ${attributes}>` +
-            options.fn(this) +
+            options.fn(this).trim() +
         '</text>';
 }
