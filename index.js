@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const port = process.env.PORT || 80; 
 
 const { registerAllHelper } = require('./src/templateHelpers');
 registerAllHelper();
@@ -7,8 +8,8 @@ registerAllHelper();
 app.use(require('./api'));
 
 try {
-    app.listen(80, () => {
-        console.log(`port 80 is running`);
+    app.listen(port, () => {
+        console.log(`port ${port} is running`);
     });
 } catch (error) {
     console.warn(error);
